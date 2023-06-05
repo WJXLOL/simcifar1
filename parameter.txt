@@ -1,0 +1,29 @@
+python main.py --data_root data/ --exp_dir exp/ --arch resnet18 --dataset cifar10 --imbanlance_rate 0.1  --learning_rate 0.06 --epochs 800 --weight_decay 5e-4 --momentum 0.9 --batch_size 512 --gpu 0
+
+python main_lincls.py --arch resnet18 --data_root data/ --num_cls 10 --dataset cifar10 --batch_size 256 --lr 30.0 --weight_decay 0.0 --pretrained exp/1/
+
+
+
+'''
+        if epoch % args.eval_freq == 0:
+            print("Validating...")
+            val_top1_acc = validation.eval()
+            print('Top1: {}'.format(val_top1_acc))
+
+            # save the best model
+            if val_top1_acc > best_acc:
+                best_acc = val_top1_acc
+
+                save_checkpoint(epoch, model, optimizer, best_acc,
+                                path.join(trial_dir, '{}_best.pth'.format(args.trial)),
+                                'Saving the best model!')
+            logger.add_scalar('Acc/val_top1', val_top1_acc, epoch)
+
+        # save the model
+        if epoch % args.save_freq == 0:
+            save_checkpoint(epoch, model, optimizer, val_top1_acc,
+                            path.join(trial_dir, 'ckpt_epoch_{}_{}.pth'.format(epoch, args.trial)),
+                            'Saving...')
+
+    print('Best accuracy:', best_acc)
+'''
